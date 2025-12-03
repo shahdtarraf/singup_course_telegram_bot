@@ -23,6 +23,7 @@ class Config:
 
 def load_config() -> Config:
     load_dotenv()
+    port_str = os.getenv("PORT") or os.getenv("WEBAPP_PORT") or "8080"
     return Config(
         TELEGRAM_BOT_TOKEN=os.getenv("TELEGRAM_BOT_TOKEN", ""),
         TELEGRAM_ADMIN_ID=int(os.getenv("TELEGRAM_ADMIN_ID", "0")),
@@ -33,5 +34,5 @@ def load_config() -> Config:
         DEBUG=str_to_bool(os.getenv("DEBUG", "true")),
         BOT_WEBHOOK_URL=os.getenv("BOT_WEBHOOK_URL", ""),
         WEBAPP_HOST=os.getenv("WEBAPP_HOST", "0.0.0.0"),
-        WEBAPP_PORT=int(os.getenv("WEBAPP_PORT", "8080")),
+        WEBAPP_PORT=int(port_str),
     )
