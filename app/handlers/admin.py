@@ -61,7 +61,7 @@ async def handle_admin_menu_text(update: Update, context: ContextTypes.DEFAULT_T
         await admin_cmd(update, context)
     elif text == "👥 قائمة الطلاب":
         await students_cmd(update, context)
-    elif text == "📢 بث جماعي":
+    elif text in ("📢 بث جماعي", "📢 ارسال رسالة", "📢  ارسال رسالة"):
         await broadcast_cmd(update, context)
     elif text == "📊 الإحصائيات":
         await stats_cmd(update, context)

@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from .data import YEARS, material_details, COURSES, get_course
 from dotenv import load_dotenv
 import requests
-from app.models import User
+from app.models import User, CourseEnrollment
 from app.db import init_db
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -296,6 +296,37 @@ async def admin_approve_proof(sid: str, pid: str):
         if found.get("telegram_id"):
             msg = "تمت الموافقة على الدفع ✅. أهلاً بك! رابط المجموعة: " + (link or "")
             _tg_send_message(found["telegram_id"], msg)
+            try:
+                tg_id = found.get("telegram_id")
+                if tg_id:
+                    user = await User.find_one(User.telegram_id == tg_id)
+                    if not user:
+                        user = User(
+                            telegram_id=tg_id,
+                            full_name="",
+                            phone="",
+                            email="",
+                        )
+                    course_id = found.get("item_id")
+                    payment_method = found.get("payment_method") or "sham"
+                    updated = False
+                    for enr in user.courses:
+                        if enr.course_id == course_id:
+                            enr.payment_method = payment_method
+                            enr.approval_status = "approved"
+                            updated = True
+                            break
+                    if not updated and course_id:
+                        user.courses.append(
+                            CourseEnrollment(
+                                course_id=course_id,
+                                payment_method=payment_method,
+                                approval_status="approved",
+                            )
+                        )
+                    await user.save()
+            except Exception:
+                pass
     return RedirectResponse("/admin/proofs", status_code=303)
 
 
