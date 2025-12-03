@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>الدورات الاحترافية</h1>
+<div class="list">
+  {% for c in courses %}
+  <a class="item-link" href="/courses/{{ c.id }}">
+    <div class="item-title">{{ c.name }}</div>
+    <div class="muted">⏱️ المدة: {{ c.duration }} • 💰 السعر: {{ '{:,}'.format(c.price) }} ل.س</div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

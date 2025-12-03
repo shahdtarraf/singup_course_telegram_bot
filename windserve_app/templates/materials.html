@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>المواد الجامعية</h1>
+<p>اختر السنة ثم الفصل:</p>
+<div class="accordion">
+  {% for year in years %}
+  <details>
+    <summary>{{ year.name }}</summary>
+    <div class="semester-links">
+      <a class="btn" href="/materials/{{ year.id }}/1">الفصل الأول</a>
+      <a class="btn" href="/materials/{{ year.id }}/2">الفصل الثاني</a>
+    </div>
+  </details>
+  {% endfor %}
+</div>
+{% endblock %}

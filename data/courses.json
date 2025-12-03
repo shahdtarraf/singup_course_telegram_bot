@@ -1,0 +1,264 @@
+{
+  "course_info": {
+    "name": "الدورة المتكاملة في الذكاء الصنعي ومعالجة اللغات الطبيعية",
+    "description": "دورة شاملة لتعليم الذكاء الاصطناعي من المستوى المبتدئ إلى المحترف",
+    "total_duration": "18 شهر"
+  },
+  "levels": {
+    "beginner": {
+      "name": "المستوى المبتدئ",
+      "duration": "6 أشهر",
+      "goal": "تأسيس رياضي وبرمجي متين",
+      "topics": [
+        "الجبر الخطي",
+        "الاحتمال والإحصاء",
+        "التكامل والتفاضل",
+        "لغة بايثون للمبتدئين",
+        "مقدمة في تعلم الآلة",
+        "مقدمة في التعلم العميق",
+        "مقدمة في معالجة اللغات الطبيعية"
+      ],
+      "project": {
+        "name": "نظام توصية أفلام",
+        "description": "Movie Recommendation System",
+        "technologies": ["Python", "Pandas", "Scikit-learn", "Collaborative Filtering"]
+      }
+    },
+    "intermediate": {
+      "name": "المستوى المتوسط",
+      "duration": "6 أشهر",
+      "goal": "بناء مهارات الذكاء الصنعي التطبيقي",
+      "topics": [
+        "تعلم الآلة (Machine Learning)",
+        "التعلم العميق (Deep Learning)",
+        "معالجة اللغات الطبيعية (NLP)",
+        "الشبكات العصبية الاصطناعية",
+        "CNN و RNN",
+        "معالجة النصوص العربية"
+      ],
+      "project": {
+        "name": "تحليل المشاعر",
+        "description": "Sentiment Analysis System",
+        "technologies": ["Python", "TensorFlow", "NLTK", "Transformers"]
+      }
+    },
+    "advanced": {
+      "name": "المستوى المحترف",
+      "duration": "6 أشهر",
+      "goal": "إتقان بناء الأنظمة الذكية المتقدمة",
+      "topics": [
+        "تطبيقات معالجة اللغات الطبيعية المتقدمة",
+        "تصميم وتشغيل Chatbots ذكية",
+        "نشر النماذج على الويب والتطبيقات",
+        "Fine-tuning للنماذج الكبيرة",
+        "RAG (Retrieval Augmented Generation)",
+        "LangChain و Vector Databases"
+      ],
+      "projects": [
+        {
+          "name": "شات بوت صيدلاني ذكي",
+          "description": "PharmaBot - مساعد طبي صيدلاني",
+          "technologies": ["LangChain", "FAISS", "OpenAI", "Streamlit"]
+        },
+        {
+          "name": "شات بوت Telegram متكامل",
+          "description": "Telegram bot with LangChain integration",
+          "technologies": ["python-telegram-bot", "LangChain", "Vector DB", "GPT-4"]
+        }
+      ]
+    }
+  },
+  "university_subjects": [
+    {
+      "name": "مبادئ الذكاء الصنعي",
+      "code": "AI101",
+      "description": "مقدمة شاملة للذكاء الاصطناعي وتطبيقاته"
+    },
+    {
+      "name": "الشبكات العصبونية",
+      "code": "AI201",
+      "description": "دراسة معمقة للشبكات العصبية الاصطناعية"
+    },
+    {
+      "name": "نظم تشغيل",
+      "code": "CS301",
+      "description": "أساسيات أنظمة التشغيل والعمليات"
+    },
+    {
+      "name": "الخوارزميات الذكية",
+      "code": "AI301",
+      "description": "خوارزميات البحث والتحسين الذكية"
+    },
+    {
+      "name": "ملتميديا",
+      "code": "CS401",
+      "description": "معالجة الصور والفيديو والصوت"
+    },
+    {
+      "name": "روبوتية",
+      "code": "AI401",
+      "description": "أساسيات الروبوتات والتحكم الذكي"
+    },
+    {
+      "name": "مشروع تخرج ذكاء صنعي",
+      "code": "AI499",
+      "description": "مشروع تطبيقي متكامل في الذكاء الاصطناعي"
+    },
+    {
+      "name": "مهارات ذكاء صنعي",
+      "code": "AI501",
+      "description": "المهارات العملية والأدوات الحديثة في AI"
+    }
+  ],
+  "quiz_questions": [
+    {
+      "id": 1,
+      "question": "ما الفرق بين التعلم الآلي والتعلم العميق؟",
+      "level": "beginner",
+      "category": "concepts",
+      "answer_key": "التعلم الآلي هو مجال واسع يتضمن خوارزميات لتعلم الأنماط من البيانات، بينما التعلم العميق هو فرع من التعلم الآلي يستخدم الشبكات العصبية العميقة متعددة الطبقات",
+      "hints": ["فكر في العلاقة بين المجال الواسع والمجال الأضيق", "الشبكات العصبية هي المفتاح"]
+    },
+    {
+      "id": 2,
+      "question": "ما هو الهدف من مشروع توصية الأفلام؟",
+      "level": "beginner",
+      "category": "projects",
+      "answer_key": "بناء نظام يوصي بأفلام للمستخدمين بناءً على تفضيلاتهم السابقة وتقييماتهم، باستخدام تقنيات مثل Collaborative Filtering",
+      "hints": ["التوصية تعتمد على سلوك المستخدمين", "Collaborative Filtering"]
+    },
+    {
+      "id": 3,
+      "question": "ما المكونات الأساسية لبناء شات بوت صيدلاني؟",
+      "level": "advanced",
+      "category": "projects",
+      "answer_key": "قاعدة معرفة طبية، نظام فهم اللغة الطبيعية (NLU)، نموذج توليد الردود، قاعدة بيانات للأدوية، وواجهة مستخدم",
+      "hints": ["تحتاج معرفة طبية + ذكاء اصطناعي", "NLU و NLG"]
+    },
+    {
+      "id": 4,
+      "question": "ما الذي يتعلمه الطالب في المستوى المبتدئ؟",
+      "level": "beginner",
+      "category": "curriculum",
+      "answer_key": "الأساسيات الرياضية (جبر خطي، احتمال)، البرمجة بلغة بايثون، مقدمة في تعلم الآلة والتعلم العميق ومعالجة اللغات الطبيعية",
+      "hints": ["الرياضيات + البرمجة + الأساسيات"]
+    },
+    {
+      "id": 5,
+      "question": "ما هي المواد الجامعية التي تدعم تعلم الذكاء الصنعي؟",
+      "level": "beginner",
+      "category": "curriculum",
+      "answer_key": "مبادئ الذكاء الصنعي، الشبكات العصبونية، الخوارزميات الذكية، الروبوتية، ومشروع تخرج ذكاء صنعي",
+      "hints": ["انظر إلى قائمة المواد الجامعية"]
+    },
+    {
+      "id": 6,
+      "question": "ما العلاقة بين الشبكات العصبونية والتعلم العميق؟",
+      "level": "intermediate",
+      "category": "concepts",
+      "answer_key": "الشبكات العصبونية هي البنية الأساسية للتعلم العميق، حيث يعتمد التعلم العميق على شبكات عصبية عميقة متعددة الطبقات",
+      "hints": ["الشبكات العصبية هي الأساس", "العمق يأتي من عدد الطبقات"]
+    },
+    {
+      "id": 7,
+      "question": "ما هي تقنية RAG وما فائدتها؟",
+      "level": "advanced",
+      "category": "concepts",
+      "answer_key": "RAG (Retrieval Augmented Generation) هي تقنية تجمع بين استرجاع المعلومات من قاعدة معرفة وتوليد الإجابات باستخدام نماذج اللغة، مما يحسن دقة وموثوقية الردود",
+      "hints": ["Retrieval + Generation", "تحسين دقة نماذج اللغة"]
+    },
+    {
+      "id": 8,
+      "question": "ما الفرق بين CNN و RNN؟",
+      "level": "intermediate",
+      "category": "concepts",
+      "answer_key": "CNN (الشبكات التلافيفية) مصممة لمعالجة البيانات المكانية مثل الصور، بينما RNN (الشبكات المتكررة) مصممة لمعالجة البيانات التسلسلية مثل النصوص",
+      "hints": ["صور vs نصوص", "مكاني vs تسلسلي"]
+    },
+    {
+      "id": 9,
+      "question": "ما هو مشروع تحليل المشاعر وما أهميته؟",
+      "level": "intermediate",
+      "category": "projects",
+      "answer_key": "تحليل المشاعر (Sentiment Analysis) هو تحديد المشاعر (إيجابية، سلبية، محايدة) من النصوص، ويستخدم في تحليل آراء العملاء، وسائل التواصل، والمراجعات",
+      "hints": ["إيجابي أم سلبي؟", "آراء العملاء"]
+    },
+    {
+      "id": 10,
+      "question": "لماذا نحتاج LangChain في بناء Chatbots؟",
+      "level": "advanced",
+      "category": "tools",
+      "answer_key": "LangChain يوفر إطار عمل لربط نماذج اللغة بمصادر البيانات والأدوات الخارجية، مما يسهل بناء تطبيقات ذكية معقدة مع ذاكرة وقدرة على الاسترجاع",
+      "hints": ["إطار عمل للربط", "Memory + Retrieval"]
+    },
+    {
+      "id": 11,
+      "question": "ما هي تطبيقات الذكاء الصنعي في الطب؟",
+      "level": "advanced",
+      "category": "applications",
+      "answer_key": "تشخيص الأمراض من الصور الطبية، التوصية بالعلاجات، شات بوتات طبية للاستشارات، تحليل السجلات الطبية، واكتشاف الأدوية الجديدة",
+      "hints": ["التشخيص + العلاج + الاستشارات"]
+    },
+    {
+      "id": 12,
+      "question": "ما الفرق بين Supervised و Unsupervised Learning؟",
+      "level": "beginner",
+      "category": "concepts",
+      "answer_key": "التعلم الموجه (Supervised) يستخدم بيانات مصنفة مسبقاً، بينما التعلم غير الموجه (Unsupervised) يكتشف الأنماط من بيانات غير مصنفة",
+      "hints": ["مصنف vs غير مصنف", "Labels"]
+    },
+    {
+      "id": 13,
+      "question": "ما هو Fine-tuning للنماذج الكبيرة؟",
+      "level": "advanced",
+      "category": "concepts",
+      "answer_key": "Fine-tuning هو تدريب نموذج مُدرب مسبقاً على بيانات محددة لمهمة معينة، مما يحسن أداءه في هذه المهمة دون الحاجة لتدريب كامل من الصفر",
+      "hints": ["تدريب إضافي", "Pre-trained model"]
+    },
+    {
+      "id": 14,
+      "question": "لماذا نستخدم FAISS في الـ Chatbots؟",
+      "level": "advanced",
+      "category": "tools",
+      "answer_key": "FAISS هي مكتبة للبحث السريع في المتجهات (Vector Search)، تستخدم لاسترجاع المعلومات ذات الصلة من قواعد المعرفة الكبيرة بكفاءة عالية",
+      "hints": ["Vector Search", "سرعة الاسترجاع"]
+    },
+    {
+      "id": 15,
+      "question": "ما هي مراحل بناء نظام NLP متكامل؟",
+      "level": "intermediate",
+      "category": "concepts",
+      "answer_key": "جمع وتنظيف البيانات، المعالجة المسبقة (Preprocessing)، استخلاص الميزات، بناء النموذج، التدريب، التقييم، والنشر",
+      "hints": ["من البيانات إلى النشر", "7 مراحل"]
+    }
+  ],
+  "learning_paths": {
+    "beginner_to_intermediate": {
+      "prerequisites": "إتمام المستوى المبتدئ ومشروع توصية الأفلام",
+      "focus": "التعمق في الخوارزميات والشبكات العصبية"
+    },
+    "intermediate_to_advanced": {
+      "prerequisites": "إتمام المستوى المتوسط ومشروع تحليل المشاعر",
+      "focus": "بناء تطبيقات إنتاجية ونشر النماذج"
+    }
+  },
+  "recommended_resources": {
+    "books": [
+      "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
+      "Deep Learning by Ian Goodfellow",
+      "Natural Language Processing with Python"
+    ],
+    "courses": [
+      "Andrew Ng - Machine Learning",
+      "Fast.ai - Practical Deep Learning",
+      "Hugging Face NLP Course"
+    ],
+    "tools": [
+      "Python",
+      "TensorFlow / PyTorch",
+      "LangChain",
+      "FAISS",
+      "Hugging Face Transformers"
+    ]
+  }
+}

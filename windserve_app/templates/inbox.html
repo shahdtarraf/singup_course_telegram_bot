@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>صندوقي</h1>
+<h3>الرسائل العامة من الإدارة</h3>
+<div class="list">
+  {% if broadcasts %}
+    {% for b in broadcasts %}
+      <div class="card">
+        <div class="card-title">{{ b.title }}</div>
+        <div class="card-body">{{ b.body }}</div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">لا توجد رسائل حالياً.</div>
+  {% endif %}
+</div>
+
+<h3>دفعاتي</h3>
+<div class="list">
+  {% if proofs %}
+    {% for p in proofs %}
+      <div class="card">
+        <div class="muted">{{ p.item_type }} • {{ p.item_id }}</div>
+        <div>الملف: <a href="/{{ p.file }}" target="_blank">عرض</a></div>
+        <div>الحالة: <strong>{{ '✅ مقبول' if p.status=='approved' else ('❌ مرفوض' if p.status=='rejected' else '⏳ قيد المراجعة') }}</strong></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">لا توجد دفعات.</div>
+  {% endif %}
+</div>
+{% endblock %}

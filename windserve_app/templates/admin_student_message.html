@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>مراسلة الطالب</h1>
+<div class="card">
+  <div class="muted">Telegram ID: {{ tid }}</div>
+  <form action="/admin/students/{{ tid }}/message" method="post" class="stack">
+    <textarea name="body" rows="5" placeholder="نص الرسالة" required></textarea>
+    <button class="btn" type="submit">إرسال</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title or 'المنصة التعليمية' }}</title>
+  <link rel="stylesheet" href="/static/main.css" />
+</head>
+<body>
+  <header class="container header">
+    <nav class="nav">
+      <a href="/" class="brand">🎓 المنصة التعليمية</a>
+      <div class="links">
+        <a href="/materials">المواد الجامعية</a>
+        <a href="/courses">الدورات الاحترافية</a>
+        <a href="/contact">تواصل</a>
+        <a href="/inbox">رسائلي ودفعاتي</a>
+        <a href="/admin/messages">رسائل الطلاب (أدمن)</a>
+        <a href="/admin/proofs">إثباتات الدفع (أدمن)</a>
+        <a href="/admin/students">الطلاب (أدمن)</a>
+        <a href="/admin/stats">إحصائيات المعلم</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="container footer">
+    <div>© {{ now().year }} المنصة التعليمية</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>رسائل الطلاب (أدمن)</h1>
+<h3>الوارد</h3>
+<div class="list">
+  {% if messages %}
+    {% for m in messages %}
+      <div class="card">
+        <div class="muted">SID: {{ m.sid }}</div>
+        <div>{{ m.message }}</div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">لا توجد رسائل.</div>
+  {% endif %}
+</div>
+
+<h3>إرسال رسالة جماعية</h3>
+<form action="/admin/broadcast" method="post" class="stack">
+  <input type="text" name="title" placeholder="العنوان" required />
+  <textarea name="body" rows="4" placeholder="المحتوى"></textarea>
+  <button class="btn" type="submit">إرسال</button>
+</form>
+{% endblock %}

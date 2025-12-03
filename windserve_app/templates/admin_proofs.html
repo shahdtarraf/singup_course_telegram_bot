@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>إثباتات الدفع</h1>
+<div class="list">
+  {% if rows %}
+    {% for e in rows %}
+      <div class="card">
+        <div class="muted">SID: {{ e.sid }} • {{ e.item_type }} • {{ e.item_id }} • الطريقة: {{ e.payment_method }}</div>
+        <div>الصورة: <a href="/{{ e.file }}" target="_blank">عرض</a></div>
+        <div>الحالة: <strong>{{ '✅ مقبول' if e.status=='approved' else ('❌ مرفوض' if e.status=='rejected' else '⏳ قيد المراجعة') }}</strong></div>
+        <div class="inline">
+          <form method="post" action="/payment/proof/{{ e.sid }}/{{ e.id }}/approve" class="inline">
+            <button class="btn" type="submit">موافقة</button>
+          </form>
+          <form method="post" action="/payment/proof/{{ e.sid }}/{{ e.id }}/reject" class="inline">
+            <button class="btn-outline" type="submit">رفض</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">لا توجد إثباتات بعد.</div>
+  {% endif %}
+</div>
+{% endblock %}

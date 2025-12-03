@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ year.name }} - الفصل {{ 'الأول' if semester==1 else 'الثاني' }}</h2>
+<div class="list">
+  {% for m in materials %}
+  <details class="item">
+    <summary class="item-title">{{ m.name }}</summary>
+    <div class="item-body">
+      <div class="muted">👩‍🏫 المهندسة: {{ m.details.teacher }}</div>
+      <ul>
+        {% for line in m.details.program %}
+        <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+      <div class="price">💰 السعر: {{ '{:,}'.format(m.details.price) }} ل.س</div>
+      <div class="note">💡 {{ m.details.discount_note }}</div>
+      <form class="upload" action="/payment/upload" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="item_type" value="material" />
+        <input type="hidden" name="item_id" value="{{ m.id }}" />
+        <div class="muted">اختر طريقة الدفع: شام {{ sham_number }} • حرام {{ haram_number }}</div>
+        <select name="payment_method" required>
+          <option value="sham">شام كاش</option>
+          <option value="haram">حرام</option>
+        </select>
+        <input type="text" name="telegram_id" placeholder="معرف تيليجرام (ID) لتصلك رسالة القبول" required />
+        <label class="file">
+          <input type="file" name="file" required />
+          <span>📎 رفع إثبات الدفع</span>
+        </label>
+        <button class="btn" type="submit">إرسال</button>
+        <a class="btn-outline" href="/inbox">عرض طلباتي</a>
+        <a class="btn-outline" href="/contact">إرسال رسالة للإدارة</a>
+      </form>
+    </div>
+  </details>
+  {% endfor %}
+</div>
+{% endblock %}

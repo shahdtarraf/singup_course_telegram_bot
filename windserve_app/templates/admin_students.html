@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>الطلاب المسجلون</h1>
+<div class="muted">الإجمالي: {{ total }}</div>
+<div class="list">
+  {% if users %}
+    {% for u in users %}
+      <div class="card">
+        <div class="card-title">{{ u.full_name }}</div>
+        <div class="muted">Telegram ID: {{ u.telegram_id }}</div>
+        <a class="btn" href="/admin/students/{{ u.telegram_id }}/message">إرسال رسالة</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">لا يوجد طلاب حالياً.</div>
+  {% endif %}
+</div>
+{% endblock %}

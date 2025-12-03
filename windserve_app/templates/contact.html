@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>تواصل</h1>
+<form action="/contact" method="post" class="stack">
+  <textarea name="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
+  <button class="btn" type="submit">إرسال</button>
+</form>
+{% endblock %}
