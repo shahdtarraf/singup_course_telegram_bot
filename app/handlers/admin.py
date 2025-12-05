@@ -7,6 +7,9 @@ from ..models import User, Notification
 from ..loaders import get_course_by_id, get_group_link
 
 
+AWAITING_DIRECT_MESSAGE = 11
+
+
 def _is_admin(context: ContextTypes.DEFAULT_TYPE, user_id: int) -> bool:
     return user_id == context.bot_data.get("ADMIN_ID")
 
@@ -391,126 +394,7 @@ async def admin_msg_select_cb(update: Update, context: ContextTypes.DEFAULT_TYPE
         f"أرسل رسالتك الآن.\n"
         f"أرسل /cancel للإلغاء."
     )
-
-
-async def stats_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not _is_admin(context, update.effective_user.id):
-        await update.message.reply_text("❌ غير مخول.")
-        return
-    users: List[User] = await User.find_all().to_list()
-    buttons = []
-    for u in users[:100]:
-        name = u.full_name or f"الطالب {u.telegram_id}"
-        buttons.append([InlineKeyboardButton(f"👤 {name}", callback_data=f"admin_stat_{u.telegram_id}")])
-    if not buttons:
-        await update.message.reply_text("❌ لا يوجد طلاب.")
-        return
-    await update.message.reply_text(
-        f"📊 **إحصائيات المعلم**\n\n"
-        f"👥 **عدد المستخدمين:** {len(users)}\n\n"
-        f"اختر طالبًا لعرض تفاصيله:",
-        reply_markup=InlineKeyboardMarkup(buttons)
-    )
-
-
-async def admin_stat_select_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    q = update.callback_query
-    await q.answer()
-    if not _is_admin(context, q.from_user.id):
-        await q.edit_message_text("❌ غير مخول.")
-        return
-    _, _, tid = q.data.partition("admin_stat_")
-    try:
-        tid = int(tid)
-    except Exception:
-        await q.edit_message_text("❌ معرف غير صالح.")
-        return
-    user: User = await User.find_one(User.telegram_id == tid)
-    if not user:
-        await q.edit_message_text("❌ الطالب غير موجود.")
-        return
-    name = user.full_name or f"الطالب {tid}"
-    courses = user.courses or []
-    course_lines = []
-    for e in courses:
-        c = get_course_by_id(e.course_id) or {"name": e.course_id}
-        course_lines.append(f"• {c.get('name')}")
-    courses_block = "\n".join(course_lines) if course_lines else "لا يوجد مواد مسجلة."
-    year_text = user.study_year if getattr(user, "study_year", None) else "-"
-    spec_text = user.specialization if getattr(user, "specialization", None) else "-"
-    text = (
-        f"👤 الاسم: {name}\n"
-        f"🆔 المعرف: {tid}\n"
-        f"📞 الرقم: {user.phone or '-'}\n"
-        f"✉️ البريد: {user.email or '-'}\n"
-        f"📚 السنة الدراسية: {year_text}\n"
-        f"🎓 التخصص: {spec_text}\n"
-        f"📚 عدد المواد المسجلة: {len(courses)}\n\n"
-        f"📋 الأسماء:\n{courses_block}"
-    )
-    await q.edit_message_text(text)
-
-
-async def _flush_approval_batch(context: ContextTypes.DEFAULT_TYPE):
-    try:
-        job = getattr(context, "job", None)
-        sid = job.data.get("sid") if job and job.data else None
-    except Exception:
-        return
-    batches = context.bot_data.get("approval_batch") or {}
-    entry = batches.pop(sid, None)
-    if not entry or not entry.get("items"):
-        return
-    items = entry["items"]
-    if len(items) == 1:
-        c = items[0]
-        text = f"تمت الموافقة على تسجيلك في {c.get('course_name')} ✅"
-        if c.get("group_link"):
-            text += f"\n\nرابط المجموعة: {c.get('group_link')}"
-        kb = InlineKeyboardMarkup([[InlineKeyboardButton("تم", callback_data=f"notification_course_approved_{c.get('course_id')}")]])
-    else:
-        text = "تمت الموافقة على تسجيلك في الدورات التالية: ✅\n\n"
-        for c in items:
-            text += f"• {c.get('course_name')}\n"
-        has_links = any(c.get("group_link") for c in items)
-        if has_links:
-            text += "\nروابط المجموعات:\n"
-            for c in items:
-                if c.get("group_link"):
-                    text += f"• {c.get('course_name')}: {c.get('group_link')}\n"
-        kb = InlineKeyboardMarkup([[InlineKeyboardButton("تم", callback_data="notification_course_approved_batch")]])
-
-    try:
-        await context.bot.send_message(chat_id=sid, text=text, reply_markup=kb)
-        admin_id = context.bot_data.get("ADMIN_ID")
-        student = None
-        try:
-            student = await User.find_one(User.telegram_id == sid)
-        except Exception:
-            student = None
-        student_name = (student.full_name if student else None) or str(sid)
-        if admin_id:
-            if len(items) == 1:
-                await context.bot.send_message(
-                    chat_id=admin_id,
-                    text=(
-                        "✅ تم تنفيذ الموافقة بنجاح\n\n"
-                        f"👤 الطالب: {student_name} ({sid})\n"
-                        f"📘 الدورة/المادة: {items[0].get('course_name')}"
-                    ),
-                )
-            else:
-                courses_block = "\n".join([f"• {c.get('course_name')}" for c in items])
-                await context.bot.send_message(
-                    chat_id=admin_id,
-                    text=(
-                        "✅ تم تنفيذ الموافقات بنجاح\n\n"
-                        f"👤 الطالب: {student_name} ({sid})\n"
-                        f"📚 المواد:\n{courses_block}"
-                    ),
-                )
-    except Exception:
-        pass
+    return AWAITING_DIRECT_MESSAGE
 
 
 def get_handlers():
@@ -524,7 +408,6 @@ def get_handlers():
         CallbackQueryHandler(approve_cb, pattern="^admin_approve_"),
         CallbackQueryHandler(reject_cb, pattern="^admin_reject_"),
         CallbackQueryHandler(ack_notification_cb, pattern="^notification_course_approved_"),
-        CallbackQueryHandler(admin_msg_select_cb, pattern="^admin_msg_"),
         CallbackQueryHandler(admin_stat_select_cb, pattern="^admin_stat_"),
         CallbackQueryHandler(start_chat_cb, pattern="^start_chat$"),
         CallbackQueryHandler(cancel_chat_cb, pattern="^cancel_chat$"),

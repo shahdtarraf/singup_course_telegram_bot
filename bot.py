@@ -2,14 +2,21 @@ import asyncio
 import logging
 import os
 
-from telegram.ext import Application
+from telegram.ext import Application, ConversationHandler, CallbackQueryHandler, MessageHandler, CommandHandler, filters
 
 from app.config import load_config
 from app.db import init_db
 from app.handlers.registration import get_handler as registration_handler
 from app.handlers.courses import get_handlers as courses_handlers
 from app.handlers.payment import get_handlers as payment_handlers
-from app.handlers.admin import get_handlers as admin_handlers, get_catchall_handler as admin_catchall_handler
+from app.handlers.admin import (
+    get_handlers as admin_handlers,
+    get_catchall_handler as admin_catchall_handler,
+    AWAITING_DIRECT_MESSAGE,
+    admin_msg_select_cb,
+    capture_messages,
+    cancel_cmd,
+)
 
 
 def setup_logging(debug: bool):
@@ -31,6 +38,23 @@ def build_application(cfg):
 
     # Handlers - Order matters! More specific handlers first
     application.add_handler(registration_handler())
+
+    # Direct admin -> student message conversation
+    direct_message_handler = ConversationHandler(
+        entry_points=[
+            CallbackQueryHandler(admin_msg_select_cb, pattern="^admin_msg_"),
+        ],
+        states={
+            AWAITING_DIRECT_MESSAGE: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, capture_messages),
+            ],
+        },
+        fallbacks=[CommandHandler("cancel", cancel_cmd)],
+        per_user=True,
+        per_chat=False,
+    )
+    application.add_handler(direct_message_handler)
+
     # Admin handlers first
     for h in admin_handlers():
         application.add_handler(h)
