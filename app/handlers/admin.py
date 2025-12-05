@@ -1,4 +1,5 @@
 from typing import List, Tuple
+import logging
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ContextTypes, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
@@ -134,6 +135,12 @@ async def contact_admin_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def capture_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logging.getLogger(__name__).info(
+        "capture_messages: user_id=%s user_data=%s text=%r",
+        update.effective_user.id if update.effective_user else None,
+        dict(context.user_data),
+        update.message.text if update.message else None,
+    )
     # Student contacting admin
     if context.user_data.get("awaiting_contact_message") and update.message and update.message.text:
         admin_id = context.bot_data.get("ADMIN_ID")
@@ -179,6 +186,12 @@ async def capture_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Admin direct message flow
     if context.user_data.get("awaiting_direct_to") and update.message and update.message.text:
         tid = context.user_data.get("awaiting_direct_to")
+        logging.getLogger(__name__).info(
+            "capture_messages: direct_message to=%s from=%s text=%r",
+            tid,
+            update.effective_user.id if update.effective_user else None,
+            update.message.text,
+        )
         try:
             await context.bot.send_message(
                 chat_id=tid, 
