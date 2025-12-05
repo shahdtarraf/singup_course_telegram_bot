@@ -177,7 +177,7 @@ async def capture_messages(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # Admin direct message flow
-    if _is_admin(context, update.effective_user.id) and context.user_data.get("awaiting_direct_to") and update.message and update.message.text:
+    if context.user_data.get("awaiting_direct_to") and update.message and update.message.text:
         tid = context.user_data.get("awaiting_direct_to")
         try:
             await context.bot.send_message(
