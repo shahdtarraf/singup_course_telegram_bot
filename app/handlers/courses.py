@@ -338,7 +338,7 @@ def get_handlers():
         CallbackQueryHandler(uni_clear_cb, pattern="^uni_clear$"),
         CallbackQueryHandler(uni_pay_cb, pattern="^uni_pay_(sham|haram)$"),
         CallbackQueryHandler(contact_admin_cb, pattern="^contact_admin$"),
-        MessageHandler(filters.TEXT & ~filters.COMMAND, handle_student_contact_message),
+        MessageHandler(filters.TEXT & ~filters.COMMAND, handle_student_contact_message, block=False),
     ]
 
 
