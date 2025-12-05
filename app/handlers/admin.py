@@ -223,25 +223,35 @@ async def approve_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await user.save()
 
     course = get_course_by_id(course_id) or {"name": course_id}
+    course_name = course.get("name")
     group_link = get_group_link(course_id)
-    batches = context.bot_data.setdefault("approval_batch", {})
-    entry = batches.get(sid)
-    if not entry:
-        entry = {"items": [], "job": None}
-        batches[sid] = entry
-    entry["items"].append({
-        "course_id": course_id,
-        "course_name": course.get("name"),
-        "group_link": group_link,
-    })
-    if entry.get("job"):
+
+    # Notify student immediately
+    try:
+        text = f"تمت الموافقة على تسجيلك في {course_name} ✅"
+        if group_link:
+            text += f"\n\nرابط المجموعة: {group_link}"
+        await context.bot.send_message(chat_id=sid, text=text)
+    except Exception:
+        pass
+
+    # Notify admin that approval was completed
+    admin_id = context.bot_data.get("ADMIN_ID")
+    if admin_id:
+        student_name = user.full_name or str(sid)
         try:
-            entry["job"].schedule_removal()
+            await context.bot.send_message(
+                chat_id=admin_id,
+                text=(
+                    "✅ تم تنفيذ الموافقة بنجاح\n\n"
+                    f"👤 الطالب: {student_name} ({sid})\n"
+                    f"📘 الدورة/المادة: {course_name}"
+                ),
+            )
         except Exception:
             pass
-    entry["job"] = context.job_queue.run_once(_flush_approval_batch, 2, data={"sid": sid})
 
-    await q.edit_message_text("تمت الموافقة.")
+    await q.edit_message_text("تمت الموافقة وإرسال الرسالة للطالب.")
 
 
 async def reject_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
