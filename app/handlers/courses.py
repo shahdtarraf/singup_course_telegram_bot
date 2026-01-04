@@ -207,8 +207,7 @@ async def uni_detail_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📚 {mat.get('name')}\n\n"
         f"👨‍🏫 المدربة: {mat.get('instructor', '-')}\n"
         f"📅 السنة/الفصل: السنة {mat.get('year', '-')} / الفصل {mat.get('semester', '-')}\n"
-        f"💰 السعر: 75,000 ل.س\n"
-        f"🎁 خصم: عند اختيار مادتين → 50,000 ل.س لكل مادة\n\n"
+        f"💰 السعر: 50,000 ل.س\n\n"
         f"📖 الوصف:\n{mat.get('description', 'وصف المادة')}\n\n"
         f"📝 محتوى برنامج التدريب:\n"
         f"• ملخصات منظمة وشاملة\n"
@@ -236,11 +235,7 @@ async def uni_toggle_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
         msg = "❌ تم إزالة المادة من السلة"
     else:
         selected.append(mid)
-        # Show discount notification
-        if len(selected) == 2:
-            msg = "✅ تم إضافة المادة! 🎁 خصم 25% تم تطبيقه على المادتين"
-        else:
-            msg = "✅ تم إضافة المادة للسلة"
+        msg = "✅ تم إضافة المادة للسلة"
     context.user_data["uni_selected"] = selected
     await q.answer(msg, show_alert=False)
     ctx = context.user_data.get("uni_ctx") or {}
@@ -267,20 +262,14 @@ async def uni_cart_cb(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     names = [MATERIALS.get(mid, {"name": mid}).get("name", mid) for mid in selected]
     total = _calc_price(selected)
-    discount_note = ""
-    if len(selected) == 1:
-        discount_note = "\n\n💰 السعر الحالي: 75,000 ل.س"
-    elif len(selected) == 2:
-        discount_note = "\n\n🎁 تم تطبيق خصم 2 مواد!\n💰 السعر الحالي: 50,000 ل.س × 2 = 100,000 ل.س"
-    else:
-        discount_note = f"\n\n🎁 خصم متعدد!\n💰 السعر الحالي: 50,000 ل.س × {len(selected)}"
+    price_note = f"\n\n💰 السعر الحالي: 50,000 ل.س × {len(selected)}"
     
     text = (
         f"🧺 سلتك الحالية:\n\n"
         + "\n".join([f"✓ {n}" for n in names])
         + f"\n\n📊 الملخص:\n"
         f"عدد المواد: {len(selected)}"
-        f"{discount_note}\n\n"
+        f"{price_note}\n\n"
         f"💵 الإجمالي النهائي: {total:,} ل.س"
     )
     kb = InlineKeyboardMarkup([

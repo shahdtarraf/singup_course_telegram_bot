@@ -412,7 +412,7 @@ def calculate_materials_price(material_ids: list):
     if count <= 0:
         return 0
     if count == 1:
-        return 75000
+        return 50000
     # 2 أو أكثر: 50 ألف لكل مادة
     return 50000 * count
 

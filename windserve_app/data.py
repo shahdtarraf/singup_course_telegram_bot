@@ -66,8 +66,7 @@ def material_details(material_id: str) -> Dict:
             "تدريب عملي على أسئلة سابقة.",
             "تقييم دوري لمستوى التقدم الأكاديمي لكل طالب.",
         ],
-        "price": 75000,
-        "discount_note": "اختيار مادتين → 50,000 ل.س لكل مادة",
+        "price": 50000,
     }
     # Display name lookup from YEARS
     for y in YEARS:

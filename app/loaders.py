@@ -101,7 +101,7 @@ def _material_from_catalog(mid: str) -> Optional[Dict[str, Any]]:
         "duration": None,
         "content": [],
         "lectures_count": None,
-        "price": 75000,  # default single-material price
+        "price": 50000,
         "year": m.get("year"),
         "semester": m.get("semester"),
         "instructor": m.get("instructor"),

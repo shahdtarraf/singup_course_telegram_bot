@@ -13,7 +13,6 @@
         {% endfor %}
       </ul>
       <div class="price">💰 السعر: {{ '{:,}'.format(m.details.price) }} ل.س</div>
-      <div class="note">💡 {{ m.details.discount_note }}</div>
       <form class="upload" action="/payment/upload" method="post" enctype="multipart/form-data">
         <input type="hidden" name="item_type" value="material" />
         <input type="hidden" name="item_id" value="{{ m.id }}" />
